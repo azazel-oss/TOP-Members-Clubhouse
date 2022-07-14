@@ -61,3 +61,16 @@ nav a {
   width: 100%;
   padding: 0.4em;
 }
+
+.form button {
+  display: inline;
+  margin-top: 1em;
+  padding: 0.4em;
+  width: 40%;
+  font-size: 1.2rem;
+  margin: 1em auto 0;
+}
+
+.error {
+  color: red;
+}
