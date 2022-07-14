@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+  .form 
+    header 
+      h3 Enter your credentials
+    form(action="", method="post") 
+      label(for="username") Username:
+      br
+      input#username(type="text", name="username")
+      br
+      label(for="password") Password: 
+      br
+      input#password(type="password", name="password")

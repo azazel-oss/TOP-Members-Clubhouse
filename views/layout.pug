@@ -1,0 +1,31 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet", href="stylesheets/style.css")
+  body 
+    header.main-header 
+      .logo 
+        h1
+          a(href="/") Clubhouse
+        
+      
+      nav 
+        ul 
+          if (!currentUser)
+            li 
+              a(href="/log-in") Log In
+
+            li 
+              a(href="/sign-up") Sign Up
+          else 
+            li 
+              a(href="/pro") Become a pro
+
+            li 
+              a(href="/sign-out") Sign Out
+
+    block content
