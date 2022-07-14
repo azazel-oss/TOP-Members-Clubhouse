@@ -4,6 +4,8 @@ block content
   .form 
     header 
       h3 Enter your credentials
+      if (error)
+        .error #{error.msg}
     form(action="", method="post") 
       label(for="username") Username:
       br
@@ -12,3 +14,5 @@ block content
       label(for="password") Password: 
       br
       input#password(type="password", name="password")
+      br
+      button(type="submit") Log in

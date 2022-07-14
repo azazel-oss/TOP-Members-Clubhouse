@@ -4,6 +4,8 @@ block content
   .form 
     header 
       h3 Fill up the following fields 
+      if (error)
+        .error #{error.msg}
     form(action="", method="post") 
 
       label(for="firstname") First Name:
@@ -21,3 +23,9 @@ block content
       label(for="password") Password: 
       br
       input#password(type="password", name="password")
+      br
+      label(for="cnfpassword") Re-type Password:
+      br
+      input#cnfpassword(type="password" name="cnfpassword") 
+      br
+      button(type="submit") Sign up
