@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+
+  if(currentUser)
+
+    h1 Welcome to the clubhouse, #{currentUser.fullName} 
+    a.btn.btn-new(href="/post/new") +
+
+  else 
+    h1 This is our clubhouse 
+    p Become a pro to view other members and see what they are upto

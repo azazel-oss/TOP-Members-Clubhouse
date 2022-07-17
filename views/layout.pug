@@ -22,10 +22,11 @@ html(lang="en")
             li 
               a(href="/sign-up") Sign Up
           else 
-            li 
-              a(href="/pro") Become a pro
+            if (currentUser.membershipStatus === 'Regular')
+              li 
+                a(href="/pro") Become a pro
 
             li 
-              a(href="/sign-out") Sign Out
+              a(href="/logout") Sign Out
 
     block content

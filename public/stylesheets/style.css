@@ -74,3 +74,23 @@ nav a {
 .error {
   color: red;
 }
+
+.btn {
+  padding: 0.1em 0.6em;
+  background-color: #dcedff;
+  border-radius: 50%;
+  font-size: 1.9rem;
+  text-decoration: none;
+  transition: transform ease-in 0.1s;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.btn-new {
+  color: #343f3e;
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+}

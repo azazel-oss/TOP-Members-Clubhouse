@@ -3,7 +3,9 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
 const passport = require("passport");
-function indexGet(req, res, next) {}
+function indexGet(req, res, next) {
+  res.render("index/home", { title: "Clubhouse - Home" });
+}
 
 function loginGet(req, res, next) {
   res.render("index/login", { title: "Clubhouse - Log in" });
@@ -18,11 +20,8 @@ let loginPost = [
     .blacklist("<>"),
   passport.authenticate("local", {
     failureRedirect: "/log-in",
+    successRedirect: "/",
   }),
-  (req, res, next) => {
-    console.log(req.user);
-    res.render("index/login", { title: "Clubhouse - Log In" });
-  },
 ];
 
 function signupGet(req, res, next) {
@@ -63,15 +62,44 @@ let signupPost = [
       });
       await newUser.save();
     });
-    res.render("index/login", { title: "Clubhouse - Log In" });
+    return res.redirect("/log-in");
   },
 ];
 
-function logoutGet(req, res, next) {}
+function logoutGet(req, res, next) {
+  req.logout((err) => {
+    if (err) return next(err);
+    return res.redirect("/");
+  });
+}
 
-function proGet(req, res, next) {}
+function proGet(req, res, next) {
+  if (req.user) return res.render("index/pro", { title: "Clubhouse - Pro" });
+  res.redirect("/");
+}
 
-function proPost(req, res, next) {}
+let proPost = [
+  body("secretkey", "The secret key should not be empty")
+    .isLength({ min: 1 })
+    .blacklist("<>"),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render("index/pro", { title: "Clubhouse - Pro" });
+    }
+    if (req.body.secretkey === "mickeymouse") {
+      const user = await User.findById(req.user._id);
+      user.membershipStatus = "Premium";
+      await User.findByIdAndUpdate(req.user._id, user);
+      return res.redirect("/");
+    } else {
+      return res.render("index/pro", {
+        title: "Clubhouse - Pro",
+        error: "The secret key is incorrect",
+      });
+    }
+  },
+];
 
 module.exports = {
   indexGet,

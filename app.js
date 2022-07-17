@@ -6,6 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
+const logger = require("morgan");
 
 const User = require("./models/user");
 
@@ -20,6 +21,7 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 
 const app = express();
 const indexRouter = require("./routes/index");
+const morgan = require("morgan");
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
@@ -63,6 +65,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+app.use(morgan("dev"));
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
