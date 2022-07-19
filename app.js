@@ -6,7 +6,6 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
-const logger = require("morgan");
 
 const User = require("./models/user");
 
@@ -21,6 +20,7 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 
 const app = express();
 const indexRouter = require("./routes/index");
+const postRouter = require("./routes/post");
 const morgan = require("morgan");
 
 app.set("view engine", "pug");
@@ -73,6 +73,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", indexRouter);
+app.use("/post", postRouter);
 
 app.use((req, rest, next) => {
   next(createError(404));

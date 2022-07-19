@@ -2,11 +2,23 @@ extends ../layout
 
 block content
 
-  if(currentUser)
-
-    h1 Welcome to the clubhouse, #{currentUser.fullName} 
-    a.btn.btn-new(href="/post/new") +
-
-  else 
-    h1 This is our clubhouse 
-    p Become a pro to view other members and see what they are upto
+  section.dashboard
+    if(currentUser)
+      a.btn.btn-new(href="/post/new") +
+      h1 Welcome to the clubhouse, #{currentUser.fullName} 
+      .message-grid 
+        each message in messages 
+          .message-board 
+            .message-body
+              .message-title #{message.title}
+              .message-text #{message.message}
+            if (currentUser.membershipStatus === 'Premium')
+              .message-footer
+                if (currentUser.admin)
+                  a(href="/post/" + message._id) 
+                    i.fa-solid.fa-trash-can
+                .message-date #{message.createdAt}
+                .message-author - #{message.author.fullName}
+    else 
+      h1 This is our clubhouse 
+      p Become a pro to view other members and see what they are upto

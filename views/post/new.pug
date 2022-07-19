@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  .form 
+    header 
+      h3 Write your message
+      if (error)
+        .error #{error.msg}
+    form(action="", method="post") 
+
+      label(for="title") Title:
+      br
+      input#title(type="text", name="title")
+      br
+      label(for="text") Message:
+      br
+      textarea#text(name="text") 
+      br
+      button(type="submit") Post
