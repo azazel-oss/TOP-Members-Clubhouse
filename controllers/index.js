@@ -2,9 +2,15 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
+const Post = require("../models/post");
 const passport = require("passport");
-function indexGet(req, res, next) {
-  res.render("index/home", { title: "Clubhouse - Home" });
+async function indexGet(req, res, next) {
+  try {
+    const messages = await Post.find().populate("author");
+    res.render("index/home", { title: "Clubhouse - Home", messages });
+  } catch (err) {
+    next(err);
+  }
 }
 
 function loginGet(req, res, next) {
@@ -101,6 +107,38 @@ let proPost = [
   },
 ];
 
+function adminGet(req, res, next) {
+  if (req.user) res.render("index/admin", { title: "Clubhouse - Admin" });
+  else res.redirect("/");
+}
+
+let adminPost = [
+  body("password", "Password should not be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .blacklist("<>"),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty)
+      return res.render("index/admin", {
+        title: "Clubhouse - Admin",
+        error: errors.errors[0],
+      });
+    const key = req.body.secretkey;
+    if (key === "blackjack") {
+      const currentUser = await User.findById(req.user._id);
+      currentUser.admin = true;
+      await currentUser.save();
+      return res.redirect("/");
+    } else {
+      return res.render("index/admin", {
+        title: "Clubhouse - Admin",
+        error: "The password is incorrect",
+      });
+    }
+  },
+];
+
 module.exports = {
   indexGet,
   loginGet,
@@ -110,4 +148,6 @@ module.exports = {
   logoutGet,
   proGet,
   proPost,
+  adminGet,
+  adminPost,
 };

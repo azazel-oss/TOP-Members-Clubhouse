@@ -8,6 +8,8 @@ const {
   logoutGet,
   proGet,
   proPost,
+  adminGet,
+  adminPost,
 } = require("../controllers/index");
 
 const router = express.Router();
@@ -27,5 +29,9 @@ router.get("/logout", logoutGet);
 router.get("/pro", proGet);
 
 router.post("/pro", proPost);
+
+router.get("/admin", adminGet);
+
+router.post("/admin", adminPost);
 
 module.exports = router;

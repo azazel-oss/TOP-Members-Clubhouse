@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     enum: ["Regular", "Premium"],
     default: "Regular",
   },
-  admin: { type: Boolean },
+  admin: { type: Boolean, default: false },
 });
 
 UserSchema.virtual("fullName").get(function () {

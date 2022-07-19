@@ -5,6 +5,7 @@ body {
   margin: 0;
   font-family: "Kanit";
   background-color: #505a5b;
+  color: #d1ddef;
 }
 
 .main-header {
@@ -93,4 +94,33 @@ nav a {
   position: fixed;
   right: 1em;
   bottom: 1em;
+}
+
+.dashboard {
+  padding: 1em 2em;
+}
+
+.message-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2em;
+}
+
+.message-board {
+  display: flex;
+  flex-direction: column;
+  background-color: #343f3e;
+  padding: 1em 2em;
+  border-radius: 5px;
+  justify-content: space-between;
+}
+
+.message-title {
+  font-size: 1.2rem;
+  text-decoration: underline;
+}
+
+.message-footer {
+  display: flex;
+  flex-direction: column-reverse;
 }

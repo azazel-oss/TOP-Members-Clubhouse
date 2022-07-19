@@ -1,0 +1,13 @@
+extends ../layout
+
+block content 
+
+  section.dashboard
+    h1 Delete post?
+
+    p #[strong Title:] #{post.title}
+    p #[strong Message:] #{post.message}
+    p #[strong Author:] #{post.author.fullName}
+    form(action="" method="post") 
+      input#id(name="id" type="hidden" value=post._id)
+      button(type="submit") Delete

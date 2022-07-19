@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  .form 
+    header 
+      h3 Enter the admin password 
+      if (error)
+        .error #{error}
+        br
+    form(action="", method="post") 
+      input#secretkey(type="password", name="secretkey")
+      button(type="submit") Submit
